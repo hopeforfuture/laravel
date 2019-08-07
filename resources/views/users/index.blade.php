@@ -1,0 +1,1 @@
+{{$info['username']}}<a href="{{ route('user.logout') }}">Logout</a>
