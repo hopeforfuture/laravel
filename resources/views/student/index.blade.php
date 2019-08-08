@@ -77,7 +77,7 @@
                             </td>
                         </tr>
 						@php
-						$fav_sub_str = '';
+							$fav_sub_str = '';
 						@endphp
                     @endforeach
                     </tbody>
