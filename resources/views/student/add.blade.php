@@ -34,12 +34,12 @@
 							<input class="form-control" id="ex3" type="text">
 						  </div>
 						</div>
-						<div class="col-md-2 col-sm-2 col-xs-2" style="float:right">
+						<div class="col-md-2 col-sm-2 col-xs-2" style="float:right;margin-top:-42px;">
 							
 							<a href="Javascript:void(0)" class="plus">
 								<img src='{{ asset("img/plus.jpg")}}' width="40" height="30" />
 							</a>
-							<a href="Javascript:void(0)" class="minus">
+							<a href="Javascript:void(0)" class="minus" >
 								<img  src='{{ asset("img/remove.png")}}' width="40" height="30" />
 							</a>
 						</div>
