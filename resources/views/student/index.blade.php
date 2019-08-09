@@ -15,6 +15,7 @@
                 </div>
                 <div class="pull-right">
                     <a class="btn btn-success" href="{{ route('students.add') }}"> Add New</a>
+					<a class="btn btn-primary" href="{{ route('subjects.index') }}"> Subjects List</a>
                 </div>
             </div>
         </div>
@@ -73,6 +74,7 @@
                             </td>
                             <td>
 								<a href="{{ route('students.edit', $student->id) }}" class="label label-warning">Edit</a>
+								<a target="_blank" href="{{ route('students.view', $student->id) }}" class="label label-info">View</a>
                                 <a href="{{ route('students.delete', $student->id) }}" class="label label-danger" onclick="return confirm('Are you sure to delete?')">Delete</a>
                             </td>
                         </tr>

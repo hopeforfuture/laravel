@@ -15,6 +15,7 @@
                 </div>
                 <div class="pull-right">
                     <a class="btn btn-success" href="{{ route('subjects.add') }}"> Add New</a>
+					<a class="btn btn-primary" href="{{ route('students.index') }}"> Students List</a>
                 </div>
             </div>
         </div>

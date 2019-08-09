@@ -43,6 +43,7 @@ Route::post('/students/insert', 'StudentController@insert')->name('students.inse
 Route::get('/students/edit/{id}', 'StudentController@edit')->name('students.edit');
 Route::post('/students/update/{id}', 'StudentController@update')->name('students.update');
 Route::get('/students/delete/{id}', 'StudentController@remove')->name('students.delete');
+Route::get('/students/view/{id}', 'StudentController@view')->name('students.view');
 
 Route::get('/register', 'UserController@create')->name('user.create');
 
