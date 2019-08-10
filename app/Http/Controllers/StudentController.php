@@ -52,7 +52,7 @@ class StudentController extends Controller
 	
 	public function getAllSubjects()
 	{
-		$subjects = Subject::orderBy('created', 'desc')->get();
+		$subjects = Subject::where('status', '=', '1')->orderBy('created', 'desc')->get();
 		return $subjects;
 	}
 	
@@ -67,5 +67,12 @@ class StudentController extends Controller
 		$subjects = $this->getAllSubjects();
 		$classes = $this->getAllClasses();
 		return view('student.add',['subjects'=>$subjects, 'classes'=>$classes]);
+	}
+	
+	public function insert(Request $request)
+	{
+		$postdata = $request->all();
+		
+		dd($postdata);
 	}
 }

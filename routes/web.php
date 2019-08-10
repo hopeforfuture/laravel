@@ -45,6 +45,8 @@ Route::post('/students/update/{id}', 'StudentController@update')->name('students
 Route::get('/students/delete/{id}', 'StudentController@remove')->name('students.delete');
 Route::get('/students/view/{id}', 'StudentController@view')->name('students.view');
 
+Route::post('/students/roll/check', 'AjaxController@studentrollduplicate')->name('students.roll.duplicate');
+
 Route::get('/register', 'UserController@create')->name('user.create');
 
 Route::post('/register/insert', 'UserController@store')->name('user.store');
