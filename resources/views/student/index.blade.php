@@ -28,6 +28,7 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Contact</th>
+						<th>Class</th>
                         <th>Roll No</th>
                         <th>Favourite Subjects</th>
                         <th>Created</th>
@@ -45,6 +46,7 @@
 								$fav_sub_str.=$subjects[$sub].",";
 							}
 							$fav_sub_str = rtrim($fav_sub_str, ",");
+							$class = $classes[$student->student_class];
 						@endphp
                         <tr>
 							<td class="table-text">
@@ -60,11 +62,15 @@
                                 <div>{{$student->contact}}</div>
                             </td>
 							<td class="table-text">
+                                <div>{{$class}}</div>
+                            </td>
+							<td class="table-text">
                                 <div>{{$student->roll_no}}</div>
                             </td>
 							<td class="table-text">
                                 <div>{{$fav_sub_str}}</div>
                             </td>
+							
                             <td class="table-text">
                                 <div>
 									@php

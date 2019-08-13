@@ -17,6 +17,7 @@ class StudentController extends Controller
 		$subjects = $this->getAllSubjects();
 		$subjectarr = array();
 		$studentsarr = array();
+		$clslist = $this->getAllClasses();
 		if(!empty($subjects))
 		{
 			foreach($subjects as $subject)
@@ -28,7 +29,7 @@ class StudentController extends Controller
 			}
 		}
 		$students = Student::where('status', '=', '1')->orderBy('id', 'DESC')->paginate(10);
-		return view('student.index',['students'=>$students, 'subjects'=>$subjectarr])
+		return view('student.index',['students'=>$students, 'subjects'=>$subjectarr, 'classes'=>$clslist])
             ->with('i', ($request->input('page', 1) - 1) * 10);
 	}
 	
@@ -72,7 +73,66 @@ class StudentController extends Controller
 	public function insert(Request $request)
 	{
 		$postdata = $request->all();
+		$len = count($postdata['name']);
+		$fav_sub_num = explode(",", $postdata['fav_sub_num']);
+		$start_sub = current($fav_sub_num);
+		$sub_arr = array();
+		$start_sub_index = 0;
+		$fav_sub_arr = $postdata['fav_subjects'];
 		
-		dd($postdata);
+		for($j=0;$j<$len;$j++)
+		{
+			
+			for($i=$start_sub_index;$i<$start_sub;$i++)
+			{
+				$sub_arr[] = $fav_sub_arr[$i];
+			}
+			$sub_std = implode(",", $sub_arr);
+			
+			$std = new Student;
+			
+			$std->name = trim($postdata['name'][$j]);
+			$std->email = trim($postdata['email'][$j]);
+			$std->contact = trim($postdata['contact'][$j]);
+			$std->gender = trim($postdata['gender'][$j]);
+			$std->roll_no = trim($postdata['roll_no'][$j]);
+			$std->student_class = trim($postdata['student_class'][$j]);
+			$std->section = trim($postdata['section'][$j]);
+			$std->fav_subjects = $sub_std;
+			$std->save();
+			$start_sub_index = $start_sub;
+			$start_sub = $start_sub_index + next($fav_sub_num);
+			$sub_std = '';
+			$sub_arr = array();
+		}
+		
+		Session::flash('success_msg', 'Student Added successfully.');
+		
+		return redirect()->route('students.index');
+	}
+	
+	public function edit($id)
+	{
+		$classes = $this->getAllClasses();
+		$student = Student::find($id);
+		$subjects = $this->getAllSubjects();
+		return view('student.edit', ['std'=>$student, 'classes'=>$classes, 'subjects'=>$subjects]);
+	}
+	
+	public function update($id, Request $request)
+	{
+		
+		
+		//get post data
+        $postdata = $request->all();
+		$postdata['fav_subjects'] = implode(",", $postdata['fav_subjects']);
+        
+        //update post data
+        Student::find($id)->update($postdata);
+        
+        //store status message
+        Session::flash('success_msg', 'Student updated successfully!');
+
+        return redirect()->route('students.index');
 	}
 }
