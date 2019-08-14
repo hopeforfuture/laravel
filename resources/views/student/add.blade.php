@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.student')
 
 @section('content')
 <div class="row">
@@ -17,29 +17,29 @@
 				
             </div>
             <div class="panel-body" style="overflow:scroll;">
-                <form id="frmstudent" onsubmit="formvalidate();return false" action="{{ route('students.insert') }}" method="POST" class="form-horizontal">
+                <form id="frmstudent"  action="{{ route('students.insert') }}" method="POST" class="form-horizontal">
                     {{ csrf_field() }}
 				  <div class="tr_clone" id="addon">  
 						<div class="form-group row" >
 						
 						  <div class="col-xs-2">
 							<label for="ex1">Name</label>
-							<input required class="form-control"  type="text" name="name[]">
+							<input required class="form-control stdname"  type="text" name="name[]">
 						  </div>
 						  
 						  <div class="col-xs-2">
 							<label for="ex2">Email Adress</label>
-							<input required class="form-control" type="email" name="email[]">
+							<input required class="form-control stdemail" type="email" name="email[]">
 						  </div>
 						  
 						  <div class="col-xs-2">
 							<label for="ex3">Contact No</label>
-							<input required class="form-control" type="text" name="contact[]">
+							<input required class="form-control stdcontact" type="text" name="contact[]">
 						  </div>
 						  
 						  <div class="col-xs-2">
 							<label for="ex3">Gender</label>
-							<select required class="form-control" name="gender[]">
+							<select required class="form-control stdgend" name="gender[]">
 								<option value="">---Select Gender---</option>
 								<option value="M">Male</option>
 								<option value="F">Female</option>
@@ -53,7 +53,7 @@
 						  
 						  <div class="col-xs-2">
 							<label for="ex3">Class</label>
-							<select required class="form-control" name="student_class[]">
+							<select required class="form-control cls" name="student_class[]">
 								<option value="">---Select Class---</option>
 								@foreach ($classes as $key=>$val)
 								<option value="{{$key}}">{{$val}}</option>
@@ -63,7 +63,7 @@
 						  
 						  <div class="col-xs-2">
 							<label for="ex3">Section</label>
-							<select required class="form-control" name="section[]">
+							<select required class="form-control stdsec" name="section[]">
 								<option value="">---Select Section---</option>
 								<option value="A">A</option>
 								<option value="B">B</option>
@@ -98,7 +98,7 @@
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
 							<input type="hidden" name="fav_sub_num" id="fav_sub_num" />
-                            <input type="submit" class="btn btn-default" value="Save" />
+                            <input type="submit" class="btn btn-default" value="Save" onclick="Javascript: return formvalidate();" />
                         </div>
                     </div>
                 </form>
@@ -106,6 +106,7 @@
         </div>
     </div>
 </div>
+@include('common.scripts')
 <script>
  $.ajaxSetup({
 
@@ -167,26 +168,133 @@ $(document).ready(function(){
 	});
 });
 
-/*function formvalidate()
+
+function ValidateEmail(str)
+{
+	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	if(str.match(mailformat))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+function formvalidate()
 {
 	var flag = true;
-	var fav_roll_arr = Array();
-	var fav_roll_str = '';
+	var name = '';
+	var email = '';
+	err_email_invalid = '';
+	var contact = '';
+	var gender = '';
 	var roll_no_val = '';
+	var class_val = '';
+	var sec = '';
+	var sub = '';
+	var std_roll_arr = Array();
+	var std_roll_str = '';
 	var alreadySeen = [];
+	
+	var err_name = '';
+	var err_email = '';
+	var err_contact = '';
+	var err_gender = '';
+	var err_roll = '';
 	var err_roll_duplicate = '';
 	var err_roll_use = '';
+	var err_class = '';
+	var err_sec = '';
+	var err_sub = '';
 	var err_msg = '';
 	var separator = '<br/>';
 	
-	$(".roll_no").each(function(){
-		roll_no_val = $(this).val();
-		fav_roll_arr.push(roll_no_val);
+	$(".stdname").each(function(){
+		name = $.trim($(this).val());
+		if(name == '')
+		{
+			err_name = 'One or more name field is blank.' + separator;
+		}
 	});
 	
-	for(var j = 0; j < fav_roll_arr.length; j++)
+	$(".stdemail").each(function(){
+		email = $.trim($(this).val());
+		if(email == '')
+		{
+			err_email = 'One or more email field is blank.' + separator;
+		}
+		else if(email.length > 0)
+		{
+			if(ValidateEmail(email) == false)
+			{
+				err_email_invalid = 'One or more email field is invalid.' + separator;
+			}
+		}
+	});
+	
+	$(".stdcontact").each(function(){
+		contact = $.trim($(this).val());
+		if(contact == '')
+		{
+			err_contact = 'One or more contact field is blank.' + separator;
+		}
+	});
+	
+	$(".stdgend").each(function(){
+		gender = $.trim($(this).val());
+		if(gender == '')
+		{
+			err_gender = 'One or more gender field is blank.' + separator;
+		}
+	});
+	
+	$(".roll_no").each(function(){
+		roll_no_val = $(this).val();
+		if(roll_no_val == '')
+		{
+			err_roll = 'One or more roll no field is blank.' + separator;
+		}
+	});
+	
+	$(".cls").each(function(){
+		class_val = $(this).val();
+		if(class_val == '')
+		{
+			err_class = 'One or more class field is blank.' + separator;
+		}
+	});
+	
+	$(".stdsec").each(function(){
+		sec = $(this).val();
+		if(sec == '')
+		{
+			err_sec = 'One or more section field is blank.' + separator;
+		}
+	});
+	
+	$(".fs").each(function(){
+		sub = $(this).val();
+		if(sub == '')
+		{
+			err_sub = 'One or more subject field is blank.' + separator;
+		}
+	});
+	
+	$(".roll_no").each(function(){
+		roll_no_val = $(this).val();
+		class_val = $(this).closest('.tr_clone').find('.cls').val();
+		if(roll_no_val != '' && class_val != '')
+		{
+			std_roll_arr.push(roll_no_val+"#"+class_val);
+		}
+		
+	});
+	
+	for(var j = 0; j < std_roll_arr.length; j++)
 	{
-		var roll = fav_roll_arr[j];
+		var roll = std_roll_arr[j];
 		if(alreadySeen[roll])
 		{
 			flag = false;
@@ -199,36 +307,39 @@ $(document).ready(function(){
 		}
 	}
 	
-	fav_roll_str = fav_roll_arr.join(',');
+	std_roll_str = std_roll_arr.join(',');
 	
-	$.ajax({
-		type: "post",
-		async:false,
-		url: '/students/roll/check',
-		data:{roll_str: fav_roll_str},
-		success:function(len)
-		{
-			if(len > 0)
+	if(std_roll_str.length > 0)
+	{
+		$.ajax({
+			type: "post",
+			async:false,
+			url: '/students/roll/check',
+			data:{roll_str: std_roll_str},
+			success:function(response)
 			{
-				flag = false;
-				err_roll_use = 'One or more roll no is in use.';
+				if(response == 'failed')
+				{
+					flag = false;
+					err_roll_use = 'One or more roll no is in use.';
+				}
 			}
-		}
-	});
+		});
+	}
 	
-	err_msg = err_roll_duplicate + err_roll_use;
+	err_msg = err_name + err_email + err_email_invalid + err_contact + err_gender + err_roll + err_roll_duplicate + err_roll_use + err_class + err_sec + err_sub;
 	
 	if(err_msg == '')
 	{
-		$("#frmstudent").submit();
+		return true;
 	}
 	else
 	{
-		
 		$(".modal-body").html(err_msg);
 		$("#myModal").modal();
+		return false;
 	}
-}*/
+}
 
 </script>
 @endsection

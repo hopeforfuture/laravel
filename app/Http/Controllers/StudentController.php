@@ -122,7 +122,6 @@ class StudentController extends Controller
 	public function update($id, Request $request)
 	{
 		
-		
 		//get post data
         $postdata = $request->all();
 		$postdata['fav_subjects'] = implode(",", $postdata['fav_subjects']);
@@ -132,6 +131,18 @@ class StudentController extends Controller
         
         //store status message
         Session::flash('success_msg', 'Student updated successfully!');
+
+        return redirect()->route('students.index');
+	}
+	
+	public function remove($id)
+	{
+		$student = Student::find($id);
+		$student->status = '0';
+		$student->save();
+		
+		//store status message
+        Session::flash('success_msg', 'Student deleted successfully!');
 
         return redirect()->route('students.index');
 	}

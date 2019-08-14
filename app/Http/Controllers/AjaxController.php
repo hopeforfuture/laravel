@@ -15,10 +15,42 @@ class AjaxController extends Controller
 		{
 			die('Not a http ajax request.');
 		}
+		$flag = true;
 		$postdata = $request->all();
 		$rollarr = explode(",", $postdata['roll_str']);
-		$count = Student::whereIn('roll_no', $rollarr)->count();
-		echo $count;
+		$stdarr = array();
+		$stdroll = '';
+		$stdclass = '';
+		$count = 0;
+		if(!empty($rollarr))
+		{
+			foreach($rollarr as $ra)
+			{
+				$stdarr = explode("#", $ra);
+				$stdroll = $stdarr[0];
+				$stdclass = $stdarr[1];
+				
+				$count = Student::where([
+						    ['roll_no', "=", $stdroll],
+						    ['student_class', "=", $stdclass],
+						])->count();
+						
+				if($count > 0)
+				{
+					$flag = false;
+					break;
+				}
+			}
+		}
+		
+		if($flag)
+		{
+			echo 'success';
+		}
+		else
+		{
+			echo 'failed';
+		}
 		die;
 	}
 }
