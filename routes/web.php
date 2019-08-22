@@ -59,6 +59,13 @@ Route::get('/logout', 'UserController@logout')->name('user.logout');
 
 Route::get('/home', 'UserController@home')->name('user.home');
 
+Route::prefix('admin')->group(function() {
+    Route::get('/', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+    Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
+	Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
+    Route::get('/dashboard', 'AdminController@index')->name('admin.dashboard');
+});
+
 
 Route::get('session/get','SessionController@accessSessionData');
 Route::get('session/set','SessionController@storeSessionData');

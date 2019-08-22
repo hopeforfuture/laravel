@@ -20,7 +20,6 @@
 
     <body>
         <div class="container-fluid">
-            <h1>CRUD (Create Read Update Delete) Operations in Laravel</h1>
             @yield('content')
         </div>
 		<div class="modal fade" id="myModal" role="dialog">
