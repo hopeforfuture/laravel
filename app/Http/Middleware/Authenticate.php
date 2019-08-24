@@ -24,6 +24,11 @@ class Authenticate extends Middleware
           case 'admin':
             $login = 'admin.login';
             break;
+			
+		 case 'member':
+            $login = 'member.login';
+            break;
+ 
 
           default:
             $login = 'user.login';

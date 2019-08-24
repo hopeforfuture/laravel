@@ -66,6 +66,13 @@ Route::prefix('admin')->group(function() {
     Route::get('/dashboard', 'AdminController@index')->name('admin.dashboard');
 });
 
+Route::prefix('member')->group(function() {
+    Route::get('/', 'Auth\MemberLoginController@showLoginForm')->name('member.login');
+    Route::post('/login', 'Auth\MemberLoginController@login')->name('member.login.submit');
+	Route::get('/logout', 'Auth\MemberLoginController@logout')->name('member.logout');
+    Route::get('/dashboard', 'MemberController@index')->name('member.dashboard');
+});
+
 
 Route::get('session/get','SessionController@accessSessionData');
 Route::get('session/set','SessionController@storeSessionData');

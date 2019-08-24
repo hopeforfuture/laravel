@@ -38,6 +38,7 @@ class ProductsController extends Controller
 		
 		$postdata = $request->input();
 		
+		
 		$product = new Product($postdata);
 		
 		if($file = $request->hasFile('product_image'))
