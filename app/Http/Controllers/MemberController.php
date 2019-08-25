@@ -11,6 +11,7 @@ class MemberController extends Controller
     public function __construct()
     {
         $this->middleware('auth:member')->except('create', 'store');
+		$this->middleware('guest:member')->except('index');
     }
 	
 	public function index()

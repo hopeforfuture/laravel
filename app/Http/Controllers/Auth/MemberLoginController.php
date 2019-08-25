@@ -31,7 +31,8 @@ class MemberLoginController extends Controller
       // Attempt to log the user in
       if (Auth::guard('member')->attempt(['email' => $request->email, 'password' => $request->password], $remember_me)) {
         // if successful, then redirect to their intended location
-        return redirect()->intended(route('member.dashboard'));
+        //return redirect()->intended(route('member.dashboard'));
+        return redirect()->route('member.dashboard');
       }
 
       // if unsuccessful, then redirect back to the login with the form data
