@@ -5,7 +5,9 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-				
+				<div class="pull-right">
+                    <a class="btn btn-success" href="{{ route('member.create') }}"> Add New</a>
+                </div>
                 <div class="panel-heading">
 					Member Login
 					@if(Session::has('status'))

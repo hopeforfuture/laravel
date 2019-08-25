@@ -14,7 +14,7 @@
                     <h2>Posts List </h2>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-success" href="{{ route('posts.add') }}"> Add New</a>
+                    <a class="btn btn-success" href="{{ route('posts.add') }}">Sign Up</a>
                 </div>
             </div>
         </div>

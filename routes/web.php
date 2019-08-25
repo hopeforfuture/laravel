@@ -71,6 +71,8 @@ Route::prefix('member')->group(function() {
     Route::post('/login', 'Auth\MemberLoginController@login')->name('member.login.submit');
 	Route::get('/logout', 'Auth\MemberLoginController@logout')->name('member.logout');
     Route::get('/dashboard', 'MemberController@index')->name('member.dashboard');
+	Route::get('/create', 'MemberController@create')->name('member.create');
+	Route::post('/insert', 'MemberController@store')->name('member.insert');
 });
 
 

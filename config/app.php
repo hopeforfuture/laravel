@@ -163,6 +163,8 @@ return [
         /*
          * Package Service Providers...
          */
+		 
+		 LaravelCaptcha\Providers\LaravelCaptchaServiceProvider::class,
 
         /*
          * Application Service Providers...

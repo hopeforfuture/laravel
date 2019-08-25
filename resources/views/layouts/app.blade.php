@@ -5,6 +5,7 @@
 
         <!-- bootstrap minified css -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link href="{{ captcha_layout_stylesheet_url() }}" type="text/css" rel="stylesheet">
         <!-- jQuery library -->
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
 		<script type="text/javascript" src="{{ URL::asset('js/jquery.js') }}"></script>
