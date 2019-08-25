@@ -15,7 +15,7 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-		$guardsarr = explode("/",substr($_SERVER['REQUEST_URI'], 1));
+		/*$guardsarr = explode("/",substr($_SERVER['REQUEST_URI'], 1));
 		
 		$guard = $guardsarr[0];
 		
@@ -33,7 +33,20 @@ class Authenticate extends Middleware
           default:
             $login = 'user.login';
             break;
-        }
+        }*/
+		
+		if($request->is('admin/*'))
+		{
+			$login = 'admin.login';
+		}
+		elseif($request->is('member/*'))
+		{
+			$login = 'member.login';
+		}
+		else
+		{
+			$login = 'user.login';
+		}
 		
         if (! $request->expectsJson()) 
 		{
