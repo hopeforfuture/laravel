@@ -74,7 +74,17 @@ class StudentController extends Controller
 	{
 		$postdata = $request->all();
 		$len = count($postdata['name']);
-		$fav_sub_num = explode(",", $postdata['fav_sub_num']);
+		$unique_str_arr = array();
+		$fav_sub_num_unique = explode(",", $postdata['fav_sub_num']); 
+		$fav_sub_num = array();
+		if(!empty($fav_sub_num_unique))
+		{
+			foreach($fav_sub_num_unique as $unique_str)
+			{
+				$unique_str_arr = explode("@", $unique_str);
+				$fav_sub_num[] = $unique_str_arr[1];
+			}
+		}
 		$start_sub = current($fav_sub_num);
 		$sub_arr = array();
 		$start_sub_index = 0;
@@ -87,6 +97,7 @@ class StudentController extends Controller
 			{
 				$sub_arr[] = $fav_sub_arr[$i];
 			}
+			
 			$sub_std = implode(",", $sub_arr);
 			
 			$std = new Student;
