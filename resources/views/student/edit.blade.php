@@ -62,7 +62,7 @@
 							<select required class="form-control" name="student_class">
 								<option value="">---Select Class---</option>
 								@foreach ($classes as $key=>$val)
-								<option @if($std->student_class) selected @endif value="{{$key}}">{{$val}}</option>
+								<option @if($std->student_class == $key) selected @endif value="{{$key}}">{{$val}}</option>
 								@endforeach
 							</select>
 						  </div>
