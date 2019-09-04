@@ -122,6 +122,8 @@ $(document).ready(function(){
 	var fav_sub_id = "fav_"+rand;
 	$(".panel-body").find('.fs').attr('id', fav_sub_id);
 	var fav_sub = new Array();
+	var str_to_be_pushed = '';
+	var str_to_be_removed = '';
 	
 	$("body").on("click", ".plus", function(){
 		var $tr = $(this).closest('.tr_clone');
@@ -140,9 +142,10 @@ $(document).ready(function(){
 		{
 			var fav_sub_id_remove = "#"+$(this).closest('.tr_clone').find('.fs').attr('id');
 			var selected_len = $(fav_sub_id_remove + ' option:selected').length;
+			str_to_be_removed = $(this).closest('.tr_clone').find('.fs').attr('id') + "@" + selected_len;
 			for( var i = 0; i < fav_sub.length; i++)
 			{ 
-			   if ( fav_sub[i] == selected_len) 
+			   if ( fav_sub[i] == str_to_be_removed) 
 			   {
 				 fav_sub.splice(i, 1);
 				 break;
@@ -158,9 +161,10 @@ $(document).ready(function(){
 		$(".fs").each(function(){
 			var ddn_id = "#"+$(this).attr('id');
 			var selected_len = $(ddn_id + ' option:selected').length;
+			str_to_be_pushed = $(this).attr('id') + "@" + selected_len;
 			if(selected_len > 0)
 			{
-				fav_sub.push(selected_len);
+				fav_sub.push(str_to_be_pushed);
 			}
 			
 		});
