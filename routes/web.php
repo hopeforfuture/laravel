@@ -37,15 +37,16 @@ Route::get('/subjects/edit/{id}', 'SubjectController@edit')->name('subjects.edit
 Route::post('/subjects/update/{id}', 'SubjectController@update')->name('subjects.update');
 Route::get('/subjects/delete/{id}', 'SubjectController@remove')->name('subjects.delete');
 
-Route::get('/students', 'StudentController@index')->name('students.index');
-Route::get('/students/add', 'StudentController@create')->name('students.add');
-Route::post('/students/insert', 'StudentController@insert')->name('students.insert');
-Route::get('/students/edit/{id}', 'StudentController@edit')->name('students.edit');
-Route::post('/students/update/{id}', 'StudentController@update')->name('students.update');
-Route::get('/students/delete/{id}', 'StudentController@remove')->name('students.delete');
-Route::get('/students/view/{id}', 'StudentController@view')->name('students.view');
-
-Route::post('/students/roll/check', 'AjaxController@studentrollduplicate')->name('students.roll.duplicate');
+Route::prefix('students')->group(function() {
+    Route::get('/', 'StudentController@index')->name('students.index');
+	Route::get('/add', 'StudentController@create')->name('students.add');
+	Route::post('/insert', 'StudentController@insert')->name('students.insert');
+	Route::get('/edit/{id}', 'StudentController@edit')->name('students.edit');
+	Route::post('/update/{id}', 'StudentController@update')->name('students.update');
+	Route::get('/delete/{id}', 'StudentController@remove')->name('students.delete');
+	Route::get('/view/{id}', 'StudentController@view')->name('students.view');
+	Route::post('/roll/check', 'AjaxController@studentrollduplicate')->name('students.roll.duplicate');
+});
 
 Route::get('/register', 'UserController@create')->name('user.create');
 
