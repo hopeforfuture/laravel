@@ -97,6 +97,8 @@
 				 {{$students->links('vendor.pagination.bootstrap-4')}}
 			 </ul>
 		</nav>
+        @else
+			No record found
     @endif
     </div>
 </div>
