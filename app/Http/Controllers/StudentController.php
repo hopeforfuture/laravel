@@ -85,7 +85,8 @@ class StudentController extends Controller
 				$fav_sub_num[] = $unique_str_arr[1];
 			}
 		}
-		$start_sub = current($fav_sub_num);
+		
+		$sub_len = current($fav_sub_num);
 		$sub_arr = array();
 		$start_sub_index = 0;
 		$fav_sub_arr = $postdata['fav_subjects'];
@@ -93,13 +94,8 @@ class StudentController extends Controller
 		for($j=0;$j<$len;$j++)
 		{
 			
-			for($i=$start_sub_index;$i<$start_sub;$i++)
-			{
-				$sub_arr[] = $fav_sub_arr[$i];
-			}
-			
+			$sub_arr = array_splice($fav_sub_arr, $start_sub_index, $sub_len);
 			$sub_std = implode(",", $sub_arr);
-			
 			$std = new Student;
 			
 			$std->name = trim($postdata['name'][$j]);
@@ -111,8 +107,8 @@ class StudentController extends Controller
 			$std->section = trim($postdata['section'][$j]);
 			$std->fav_subjects = $sub_std;
 			$std->save();
-			$start_sub_index = $start_sub;
-			$start_sub = $start_sub_index + next($fav_sub_num);
+	
+			$sub_len = next($fav_sub_num);
 			$sub_std = '';
 			$sub_arr = array();
 		}
